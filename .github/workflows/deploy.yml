@@ -1,10 +1,12 @@
 name: deploy-workflow
 
 on:
-  pull_request:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
-jobs: 
+jobs:
   deploy-aws-get-caller-id-ro:
     name: AWS get caller ID
     runs-on: ubuntu-latest
