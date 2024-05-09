@@ -1,0 +1,42 @@
+name: validate-workflow
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs: 
+  validate-aws-get-caller-id-ro:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+    - name: AWS login
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: ${{ secrets.AWS_RO_ROLE_ID }}
+        aws-region: eu-west-1
+
+    - name: Run AWS CLI commands
+      run: |
+        aws sts get-caller-identity
+
+  validate-azure-get-caller-id-ro:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+    - name: Azure login
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.AZ_RO_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZ_TENANT_ID }}
+        allow-no-subscriptions: true
+
+    - name: Run Azure CLI commands
+      run: |
+        az account show
+        az ad group list
