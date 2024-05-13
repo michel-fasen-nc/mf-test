@@ -1,13 +1,12 @@
 name: validate-workflow
 
 on:
-  push:
-    branches:
-      - main
+  pull_request:
   workflow_dispatch:
 
 jobs: 
   validate-aws-get-caller-id-ro:
+    name: AWS get caller ID
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -24,6 +23,7 @@ jobs:
         aws sts get-caller-identity
 
   validate-azure-get-caller-id-ro:
+    name: Azure get group info
     runs-on: ubuntu-latest
     permissions:
       id-token: write

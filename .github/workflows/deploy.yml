@@ -6,8 +6,9 @@ on:
       - main
   workflow_dispatch:
 
-jobs: 
+jobs:
   deploy-aws-get-caller-id-ro:
+    name: AWS get caller ID
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -24,6 +25,7 @@ jobs:
         aws sts get-caller-identity
 
   deploy-azure-get-caller-id-ro:
+    name: Azure get group info
     runs-on: ubuntu-latest
     permissions:
       id-token: write
